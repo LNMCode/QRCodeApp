@@ -14,5 +14,9 @@
 .cxx
 local.properties
 
+#ignore .idea
+/.idea
+.idea/
+
 # Project exclude paths
 /buildSrc/build/
