@@ -14,6 +14,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion Versions.compileSdk
@@ -99,5 +100,6 @@ dependencies {
 
     // compose testing
     implementation InstrumentationTest.compose_ui
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 }
