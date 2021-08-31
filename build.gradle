@@ -1,7 +1,7 @@
 import dependencies.Versions
 
 buildscript {
-    ext.kotlin_version = '1.5.30'
+    ext.kotlin_version = '1.4.30'
     repositories {
         gradlePluginPortal()
         google()

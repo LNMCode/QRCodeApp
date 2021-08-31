@@ -1,4 +1,4 @@
-package com.codingwithmitch.food2forkcompose.presentation.util
+package com.ricker.qrcodeapp.presentation.util
 
 import android.app.Application
 import androidx.compose.runtime.mutableStateOf
@@ -18,9 +18,9 @@ constructor(
   val isNetworkAvailable = mutableStateOf(false)
 
   fun registerConnectionObserver(lifecycleOwner: LifecycleOwner){
-    connectionLiveData.observe(lifecycleOwner, { isConnected ->
+    connectionLiveData.observe(lifecycleOwner) { isConnected ->
       isConnected?.let { isNetworkAvailable.value = it }
-    })
+    }
   }
 
   fun unregisterConnectionObserver(lifecycleOwner: LifecycleOwner){
