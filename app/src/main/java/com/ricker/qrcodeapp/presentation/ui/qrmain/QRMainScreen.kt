@@ -23,6 +23,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun QRMainScreen(
     isDarkTheme: Boolean,
     isNetworkAvailable: Boolean,
+    onNavigateToScreen: (String) -> Unit,
     viewModel: QRMainViewModel,
     activity: MainActivity,
 ) {
@@ -47,7 +48,8 @@ fun QRMainScreen(
                     ListButtonEvents(
                         modifier = Modifier,
                         listItemCollections = listItemEvent,
-                        enable = enableOptions
+                        enable = enableOptions,
+                        enableQRCamera = viewModel::setEnableQRCamera
                     )
                     ExtendedFloatingActionButton(
                         text = { Text(text = "Tùy chọn") },
@@ -55,7 +57,6 @@ fun QRMainScreen(
                 }
             }
         ) {
-
             Box(
                 modifier = Modifier.fillMaxSize()
             ) {
@@ -68,6 +69,7 @@ fun QRMainScreen(
                         setOrientationLocked(false)
                         setBeepEnabled(false)
                         initiateScan()
+                        viewModel.setEnableQRCamera(false)
                     }
                 }
             }

@@ -23,6 +23,7 @@ fun ListButtonEvents(
     modifier: Modifier,
     listItemCollections: List<DataItemEvent>,
     enable: Boolean,
+    enableQRCamera: (Boolean) -> Unit,
 ) {
     BoxWithConstraints(modifier = modifier) {
         val offset by animateDpAsState(
@@ -52,18 +53,9 @@ fun ListButtonEvents(
                         backgroundColor = Color.White,
                         elevation = FloatingActionButtonDefaults.elevation(2.dp),
                         onClick = {
-                            /*when (circleButton) {
-                                DataItemEvent.ThreeD -> {
-                                    Log.d(TAG, "ListButtonEvents: 3D")
-                                    onChangeModeMapView()
-                                    icon = if (icon == R.drawable.icon_2d_96px) R.drawable.icon_3d_96px
-                                    else R.drawable.icon_2d_96px
-                                }
-                                *//*DataItemEvent.GPS -> {
-                                Log.d(TAG, "ListButtonEvents: GPS")
-                                onGPS()
-                            }*//*
-                        }*/
+                            when(circleButton){
+                                DataItemEvent.ScanCode -> enableQRCamera(true)
+                            }
                         }
                     ) {
                         CoilImage(

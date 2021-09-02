@@ -1,6 +1,7 @@
 package com.ricker.qrcodeapp.presentation.components
 
 import com.ricker.qrcodeapp.R
+import com.ricker.qrcodeapp.presentation.navigation.Screen
 
 sealed class DataItemEvent {
     object ScanCode: DataItemEvent() //QRMain
@@ -25,6 +26,15 @@ sealed class DataItemEvent {
             History -> R.drawable.ic_history
             Favorites -> R.drawable.ic_favorites
             Setting -> R.drawable.ic_setting
+        }
+
+    val event: String
+        get() = when(this){
+            ScanCode -> ""
+            CreateCode -> Screen.Create.route
+            History -> Screen.History.route
+            Favorites -> Screen.Favorites.route
+            Setting -> Screen.Settings.route
         }
 }
 
