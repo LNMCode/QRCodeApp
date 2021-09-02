@@ -41,7 +41,6 @@ sealed class DataItemEvent {
 val listItemEvent = listOf<DataItemEvent>(
     DataItemEvent.ScanCode,
     DataItemEvent.CreateCode,
-    DataItemEvent.History,
     DataItemEvent.Favorites,
     DataItemEvent.Setting,
 )

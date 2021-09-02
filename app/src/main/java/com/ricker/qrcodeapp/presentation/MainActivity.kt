@@ -70,11 +70,13 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         result?.let {
-            val model = History(
-                value = result.contents,
-                scannedDay = "Haha",
-            )
-            viewModel.onTriggerEvent(QRMainState.InsertHistoryItem(model))
+            if (result.contents != null){
+                val model = History(
+                    value = result.contents,
+                    scannedDay = "Haha",
+                )
+                viewModel.onTriggerEvent(QRMainState.InsertHistoryItem(model))
+            }
             Toast.makeText(this, result.contents, Toast.LENGTH_LONG).show()
         }
     }
