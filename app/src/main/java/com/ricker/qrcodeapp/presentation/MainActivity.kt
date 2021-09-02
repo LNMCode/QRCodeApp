@@ -3,7 +3,6 @@ package com.ricker.qrcodeapp.presentation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalContext
@@ -17,14 +16,10 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.ricker.qrcodeapp.datastore.SettingsDataStore
 import com.ricker.qrcodeapp.domain.model.History
 import com.ricker.qrcodeapp.presentation.navigation.Screen
-import com.ricker.qrcodeapp.presentation.ui.history.HistoryScreen
-import com.ricker.qrcodeapp.presentation.ui.history.HistoryState
-import com.ricker.qrcodeapp.presentation.ui.history.HistoryViewModel
 import com.ricker.qrcodeapp.presentation.ui.qrmain.QRMainScreen
 import com.ricker.qrcodeapp.presentation.ui.qrmain.QRMainState
 import com.ricker.qrcodeapp.presentation.ui.qrmain.QRMainViewModel
 import com.ricker.qrcodeapp.presentation.util.ConnectivityManager
-import com.ricker.qrcodeapp.presentation.util.TAG
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
