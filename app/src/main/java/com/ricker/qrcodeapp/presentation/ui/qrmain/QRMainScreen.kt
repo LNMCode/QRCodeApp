@@ -8,12 +8,13 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.google.zxing.integration.android.IntentIntegrator
 import com.ricker.qrcodeapp.presentation.CustomActivity
 import com.ricker.qrcodeapp.presentation.MainActivity
-import com.ricker.qrcodeapp.presentation.components.DataItemEvent
 import com.ricker.qrcodeapp.presentation.components.ListButtonEvents
+import com.ricker.qrcodeapp.presentation.components.listItemEvent
 import com.ricker.qrcodeapp.presentation.theme.AppTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -40,12 +41,12 @@ fun QRMainScreen(
         Scaffold(
             scaffoldState = scaffoldState,
             floatingActionButton = {
-                Column {
+                Column(
+                    horizontalAlignment = Alignment.End
+                ) {
                     ListButtonEvents(
                         modifier = Modifier,
-                        listItemCollections = listOf(
-                            DataItemEvent.ThreeD
-                        ),
+                        listItemCollections = listItemEvent,
                         enable = enableOptions
                     )
                     ExtendedFloatingActionButton(
