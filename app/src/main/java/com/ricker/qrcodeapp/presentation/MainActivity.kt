@@ -15,8 +15,13 @@ import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.google.zxing.integration.android.IntentIntegrator
 import com.ricker.qrcodeapp.datastore.SettingsDataStore
+import com.ricker.qrcodeapp.domain.model.History
 import com.ricker.qrcodeapp.presentation.navigation.Screen
+import com.ricker.qrcodeapp.presentation.ui.history.HistoryScreen
+import com.ricker.qrcodeapp.presentation.ui.history.HistoryState
+import com.ricker.qrcodeapp.presentation.ui.history.HistoryViewModel
 import com.ricker.qrcodeapp.presentation.ui.qrmain.QRMainScreen
+import com.ricker.qrcodeapp.presentation.ui.qrmain.QRMainState
 import com.ricker.qrcodeapp.presentation.ui.qrmain.QRMainViewModel
 import com.ricker.qrcodeapp.presentation.util.ConnectivityManager
 import com.ricker.qrcodeapp.presentation.util.TAG
@@ -34,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var settingsDataStore: SettingsDataStore
 
+    lateinit var viewModel: QRMainViewModel
+
     override fun onStart() {
         super.onStart()
         connectivityManager.registerConnectionObserver(this)
@@ -46,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             NavHost(navController = navController, startDestination = Screen.QRMain.route) {
                 composable(route = Screen.QRMain.route) { navBackStackEntry ->
                     val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
-                    val viewModel: QRMainViewModel = viewModel("QRMainViewModel", factory)
+                    viewModel = viewModel("QRMainViewModel", factory)
                     QRMainScreen(
                         isDarkTheme = settingsDataStore.isDark.value,
                         isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
@@ -54,10 +61,6 @@ class MainActivity : AppCompatActivity() {
                         viewModel = viewModel,
                         activity = this@MainActivity,
                     )
-                }
-                composable(route = Screen.Create.route) { navBackStackEntry ->
-                    val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
-
                 }
             }
         }
@@ -67,6 +70,11 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         result?.let {
+            val model = History(
+                value = result.contents,
+                scannedDay = "Haha",
+            )
+            viewModel.onTriggerEvent(QRMainState.InsertHistoryItem(model))
             Toast.makeText(this, result.contents, Toast.LENGTH_LONG).show()
         }
     }

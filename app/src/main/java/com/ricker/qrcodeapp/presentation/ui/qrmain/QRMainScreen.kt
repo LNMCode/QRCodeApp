@@ -3,6 +3,8 @@ package com.ricker.qrcodeapp.presentation.ui.qrmain
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -32,6 +34,10 @@ fun QRMainScreen(
     val enableOptions = viewModel.isEnableOptions.value
 
     val enableQRCamera = viewModel.isEnableQRCamera.value
+
+    val historyItems = viewModel.historyItems.value
+
+    val loading = viewModel.loading.value
 
     AppTheme(
         darkTheme = isDarkTheme,
@@ -70,6 +76,13 @@ fun QRMainScreen(
                         setBeepEnabled(false)
                         initiateScan()
                         viewModel.setEnableQRCamera(false)
+                    }
+                }
+                LazyColumn{
+                    itemsIndexed(
+                        items = historyItems
+                    ) { index, history ->
+                        Text(text = history.id.toString() + " " +history.value)
                     }
                 }
             }
