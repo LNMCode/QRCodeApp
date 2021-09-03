@@ -3,7 +3,7 @@ package com.ricker.qrcodeapp.presentation.navigation
 sealed class Screen(
     val route: String
 ) {
-    object History: Screen("history")
+    object QRDetail: Screen("QRDetail")
 
     object Create: Screen("create")
 

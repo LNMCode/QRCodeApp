@@ -9,6 +9,7 @@ class HistoryEntityMapper : DomainMapper<HistoryEntity, History> {
         return History(
             id = model.id,
             value = model.value,
+            isFavorite = model.isFavorite,
             scannedDay = model.scannedDay,
         )
     }
@@ -17,6 +18,7 @@ class HistoryEntityMapper : DomainMapper<HistoryEntity, History> {
         return HistoryEntity(
             id = model.id,
             value = model.value,
+            isFavorite = model.isFavorite,
             scannedDay = model.scannedDay,
         )
     }

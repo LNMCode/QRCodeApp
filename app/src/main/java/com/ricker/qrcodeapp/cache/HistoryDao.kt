@@ -24,4 +24,7 @@ interface HistoryDao {
     @Query("SELECT * FROM history_table")
     suspend fun getAllHistoryItem(): List<HistoryEntity>
 
+    @Query("SELECT * FROM history_table WHERE is_favorite = :isFavorite")
+    suspend fun getFavorites(isFavorite: Boolean): List<HistoryEntity>
+
 }

@@ -7,12 +7,15 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "history_table")
 class HistoryEntity(
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
-    var id: Int,
+    var id: String,
 
     @ColumnInfo(name = "value")
     var value: String,
+
+    @ColumnInfo(name = "is_favorite")
+    var isFavorite: Boolean,
 
     @ColumnInfo(name = "scanned_day")
     var scannedDay: String,

@@ -6,7 +6,7 @@ import com.ricker.qrcodeapp.presentation.navigation.Screen
 sealed class DataItemEvent {
     object ScanCode: DataItemEvent() //QRMain
     object CreateCode: DataItemEvent()
-    object History: DataItemEvent()
+    object QRDetail: DataItemEvent()
     object Favorites: DataItemEvent()
     object Setting: DataItemEvent()
 
@@ -14,7 +14,7 @@ sealed class DataItemEvent {
         get() = when (this) {
             ScanCode -> "Scan Code"
             CreateCode -> "Create Code"
-            History -> "History"
+            QRDetail -> "History"
             Favorites -> "Favorites"
             Setting -> "Setting"
         }
@@ -23,7 +23,7 @@ sealed class DataItemEvent {
         get() = when (this) {
             ScanCode -> R.drawable.ic_qr_code
             CreateCode -> R.drawable.ic_create_qr_code
-            History -> R.drawable.ic_history
+            QRDetail -> R.drawable.ic_history
             Favorites -> R.drawable.ic_favorites
             Setting -> R.drawable.ic_setting
         }
@@ -32,7 +32,7 @@ sealed class DataItemEvent {
         get() = when(this){
             ScanCode -> ""
             CreateCode -> Screen.Create.route
-            History -> Screen.History.route
+            QRDetail -> Screen.QRDetail.route
             Favorites -> Screen.Favorites.route
             Setting -> Screen.Settings.route
         }
