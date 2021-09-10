@@ -1,4 +1,9 @@
 package com.ricker.qrcodeapp.presentation.ui.qrdetail
 
-class QRDetailState {
+sealed class QRDetailState {
+
+    data class GetHistoryById(
+        val id: String,
+    ): QRDetailState()
+
 }

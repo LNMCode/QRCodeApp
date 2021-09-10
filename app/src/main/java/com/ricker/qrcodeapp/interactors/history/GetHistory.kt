@@ -14,4 +14,11 @@ class GetHistory(
         return entityMapper.toDomainList(cacheResult)
     }
 
+    suspend fun getById(id: String): History? {
+        val cacheResult = historyDao.getHistoryItemById(id)
+        if (cacheResult != null)
+            return entityMapper.mapToDomainModel(cacheResult)
+        return null
+    }
+
 }

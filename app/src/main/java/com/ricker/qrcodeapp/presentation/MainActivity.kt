@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavHostController
 
-
     override fun onStart() {
         super.onStart()
         connectivityManager.registerConnectionObserver(this)
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                     QRMainScreen(
                         isDarkTheme = settingsDataStore.isDark.value,
                         isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
-                        onNavigateToScreen = navController::navigate,
+                        onNavigateToScreenDetail = navController::navigate,
                         viewModel = viewModel,
                         activity = this@MainActivity,
                     )
@@ -77,7 +76,8 @@ class MainActivity : AppCompatActivity() {
                         isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
                         onNavigateToMainScreen = navController::navigate,
                         historyId = navBackStackEntry.arguments?.getString("historyId"),
-                        viewModel = viewModel
+                        viewModel = viewModel,
+                        activity = this@MainActivity,
                     )
                 }
             }
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         connectivityManager.unregisterConnectionObserver(this)
     }
 
-    private fun insertHistory(value: String?){
+    private fun insertHistory(value: String?) {
         if (value != null) {
             val id = CreateIdByDate.create()
             val model = History(

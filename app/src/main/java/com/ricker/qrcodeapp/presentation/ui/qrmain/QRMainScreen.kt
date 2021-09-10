@@ -1,20 +1,18 @@
 package com.ricker.qrcodeapp.presentation.ui.qrmain
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import android.app.Activity
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.ExtendedFloatingActionButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.google.zxing.integration.android.IntentIntegrator
 import com.ricker.qrcodeapp.presentation.CustomActivity
 import com.ricker.qrcodeapp.presentation.MainActivity
+import com.ricker.qrcodeapp.presentation.components.HistoryItem
 import com.ricker.qrcodeapp.presentation.components.ListButtonEvents
 import com.ricker.qrcodeapp.presentation.components.listItemEvent
 import com.ricker.qrcodeapp.presentation.theme.AppTheme
@@ -25,7 +23,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun QRMainScreen(
     isDarkTheme: Boolean,
     isNetworkAvailable: Boolean,
-    onNavigateToScreen: (String) -> Unit,
+    onNavigateToScreenDetail: (String) -> Unit,
     viewModel: QRMainViewModel,
     activity: MainActivity,
 ) {
@@ -66,26 +64,44 @@ fun QRMainScreen(
             Box(
                 modifier = Modifier.fillMaxSize()
             ) {
-                if (enableQRCamera){
-                    IntentIntegrator(activity).apply {
-                        captureActivity = CustomActivity::class.java
-                        setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-                        setPrompt("Scan a barcode")
-                        setCameraId(0)
-                        setOrientationLocked(false)
-                        setBeepEnabled(false)
-                        initiateScan()
-                        viewModel.setEnableQRCamera(false)
-                    }
+                if (enableQRCamera) {
+                    initiateScan(activity)
+                    viewModel.setEnableQRCamera(false)
                 }
-                LazyColumn{
-                    itemsIndexed(
-                        items = historyItems
-                    ) { index, history ->
-                        Text(text = history.id.toString() + " " +history.value)
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 15.dp, top = 15.dp, end = 15.dp, bottom = 0.dp)
+                ) {
+                    Text(
+                        modifier = Modifier.padding(bottom = 8.dp),
+                        text = "Scanning History",
+                        style = MaterialTheme.typography.h6
+                    )
+                    LazyColumn {
+                        itemsIndexed(
+                            items = historyItems
+                        ) { _, history ->
+                            HistoryItem(
+                                history = history,
+                                onNavigateToScreenDetail = onNavigateToScreenDetail
+                            )
+                        }
                     }
                 }
             }
         }
+    }
+}
+
+private fun initiateScan(activity: Activity) {
+    IntentIntegrator(activity).apply {
+        captureActivity = CustomActivity::class.java
+        setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+        setPrompt("Scan a barcode")
+        setCameraId(0)
+        setOrientationLocked(false)
+        setBeepEnabled(false)
+        initiateScan()
     }
 }

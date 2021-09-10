@@ -10,7 +10,7 @@ interface HistoryDao {
     suspend fun insertHistory(historyEntity: HistoryEntity): Long
 
     @Query("SELECT * FROM history_table WHERE id = :id")
-    suspend fun getHistoryItemById(id: Int): HistoryEntity?
+    suspend fun getHistoryItemById(id: String): HistoryEntity?
 
     @Query("DELETE FROM history_table WHERE id IN (:ids)")
     suspend fun deleteMoreHistoryItemById(ids: List<Int>): Int
