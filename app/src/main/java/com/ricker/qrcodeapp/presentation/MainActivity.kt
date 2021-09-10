@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -28,6 +29,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
+@ExperimentalAnimationApi
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -87,10 +89,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        result?.let {
-            insertHistory(result.contents)
-            Toast.makeText(this, result.contents, Toast.LENGTH_LONG).show()
-        }
+        result?.let { insertHistory(result.contents) }
     }
 
     override fun onDestroy() {

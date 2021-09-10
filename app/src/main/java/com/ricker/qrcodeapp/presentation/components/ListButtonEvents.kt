@@ -2,17 +2,16 @@ package com.ricker.qrcodeapp.presentation.components
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.coil.CoilImage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,13 +41,20 @@ fun ListButtonEvents(
                         .padding(vertical = 6.dp)
                         .align(Alignment.End)
                 ) {
-                    Text(
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .padding(end = 3.dp),
-                        text = circleButton.name,
-                        style = MaterialTheme.typography.button
-                    )
+                    Surface(
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        shape = MaterialTheme.shapes.medium,
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .background(Color.White)
+                                .padding(horizontal = 10.dp, vertical = 2.dp),
+                            text = circleButton.name,
+                            style = MaterialTheme.typography.button,
+                            maxLines = 1,
+                        )
+                    }
+                    Spacer(modifier = Modifier.size(width = 8.dp, height = 0.dp))
                     FloatingActionButton(
                         modifier = Modifier.size(50.dp),
                         backgroundColor = Color.White,

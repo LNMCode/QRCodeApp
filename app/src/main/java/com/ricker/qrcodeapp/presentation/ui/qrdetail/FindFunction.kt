@@ -14,6 +14,7 @@ class FindFunction {
         }
         if (isLinkUrl(value)) list.add(DetailContact.LinkURL)
         if (isEmailAddress(value)) list.add(DetailContact.EmailAddress)
+        if (list.isEmpty()) list.add(DetailContact.SearchInGoogle)
         return list
     }
 

@@ -57,6 +57,7 @@ sealed class DetailContact() {
     object LinkURL : DetailContact()
     object EmailAddress : DetailContact()
     object SaveToClipBoard : DetailContact()
+    object SearchInGoogle: DetailContact()
 
     val title: String
         get() = when (this) {
@@ -65,6 +66,7 @@ sealed class DetailContact() {
             LinkURL -> "Link url"
             EmailAddress -> "Email address"
             SaveToClipBoard -> "Save to clipboard"
+            SearchInGoogle -> "Search in google"
         }
 
     val icon: Int
@@ -74,5 +76,6 @@ sealed class DetailContact() {
             LinkURL -> R.drawable.ic_website
             EmailAddress -> R.drawable.ic_send_email
             SaveToClipBoard -> R.drawable.ic_save
+            SearchInGoogle -> R.drawable.ic_search_google
         }
 }

@@ -57,7 +57,7 @@ constructor(
     }
 
     private suspend fun getListHistory() {
-        historyItems.value = getHistory.getAll()
+        historyItems.value = getHistory.getAll().reversed()
     }
 
     private suspend fun insertHistory(model: History) {
