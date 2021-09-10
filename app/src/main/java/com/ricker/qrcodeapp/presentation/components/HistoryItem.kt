@@ -18,14 +18,14 @@ import com.ricker.qrcodeapp.presentation.navigation.Screen
 @Composable
 fun HistoryItem(
     history: History,
-    onNavigateToScreenDetail: (String) -> Unit,
+    onNavigateToScreen: (String) -> Unit,
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 5.dp)
             .clickable {
-                onNavigateToScreenDetail(Screen.QRDetail.route + "/${history.id}")
+                onNavigateToScreen(Screen.QRDetail.route + "/${history.id}")
             },
         shape = MaterialTheme.shapes.medium,
     ) {

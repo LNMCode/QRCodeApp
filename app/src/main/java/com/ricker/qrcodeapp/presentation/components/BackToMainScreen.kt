@@ -5,18 +5,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.ricker.qrcodeapp.presentation.navigation.Screen
 
 @Composable
 fun BackToMainScreen(
     title: String,
-    onNavigateToMainScreen: (String) -> Unit,
+    onBackStack: () -> Unit,
 ) {
     TopAppBar(
         title = { Text(text = title, color = Color.White) },
         backgroundColor = MaterialTheme.colors.primary,
         navigationIcon = {
-            IconButton(onClick = { onNavigateToMainScreen(Screen.QRMain.route) }){
+            IconButton(onClick = { onBackStack() }){
                 Icon(Icons.Default.ArrowBack, tint = Color.White, contentDescription = "Icon back")
             }
         }

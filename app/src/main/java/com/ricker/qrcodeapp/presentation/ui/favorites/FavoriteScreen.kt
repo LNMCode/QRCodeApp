@@ -16,6 +16,7 @@ fun FavoriteScreen(
     isDarkTheme: Boolean,
     isNetworkAvailable: Boolean,
     onNavigateToScreen: (String) -> Unit,
+    onBackStack: () -> Unit,
     viewModel: FavoriteViewModel,
 ) {
     val favorites = viewModel.favorites.value
@@ -30,6 +31,12 @@ fun FavoriteScreen(
     ) {
         Scaffold(
             scaffoldState = scaffoldState,
+            topBar = {
+                BackToMainScreen(
+                    title = "Favorites History",
+                    onBackStack = onBackStack
+                )
+            }
         ) {
             Box(
                 modifier = Modifier.fillMaxSize()
@@ -37,25 +44,15 @@ fun FavoriteScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
+                        .padding(start = 15.dp, top = 15.dp, end = 15.dp, bottom = 0.dp)
                 ) {
-                    BackToMainScreen(
-                        title = "Favorites History",
-                        onNavigateToMainScreen = onNavigateToScreen
-                    )
-                    LazyColumn(
-                        modifier = Modifier.padding(
-                            start = 15.dp,
-                            top = 15.dp,
-                            end = 15.dp,
-                            bottom = 0.dp
-                        )
-                    ) {
+                    LazyColumn {
                         itemsIndexed(
                             items = favorites
                         ) { _, history ->
                             HistoryItem(
                                 history = history,
-                                onNavigateToScreenDetail = onNavigateToScreen
+                                onNavigateToScreen = onNavigateToScreen
                             )
                         }
                     }

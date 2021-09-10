@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             navController = rememberNavController()
+            navController.popBackStack()
             NavHost(navController = navController, startDestination = Screen.QRMain.route) {
                 composable(route = Screen.QRMain.route) { navBackStackEntry ->
                     val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                     QRDetailScreen(
                         isDarkTheme = settingsDataStore.isDark.value,
                         isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
-                        onNavigateToScreen = navController::navigate,
+                        onBackStack = navController::popBackStack,
                         historyId = navBackStackEntry.arguments?.getString("historyId"),
                         viewModel = viewModel,
                         activity = this@MainActivity,
@@ -88,7 +89,8 @@ class MainActivity : AppCompatActivity() {
                         isDarkTheme = settingsDataStore.isDark.value,
                         isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
                         onNavigateToScreen = navController::navigate,
-                        viewModel = viewModel
+                        onBackStack = navController::popBackStack,
+                        viewModel = viewModel,
                     )
                 }
             }

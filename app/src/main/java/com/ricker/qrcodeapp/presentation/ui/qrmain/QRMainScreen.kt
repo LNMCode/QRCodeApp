@@ -91,7 +91,7 @@ fun QRMainScreen(
                         ) { _, history ->
                             HistoryItem(
                                 history = history,
-                                onNavigateToScreenDetail = onNavigateToScreen
+                                onNavigateToScreen = onNavigateToScreen
                             )
                         }
                     }
