@@ -12,8 +12,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.google.zxing.integration.android.IntentIntegrator
@@ -31,7 +29,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun QRMainScreen(
     isDarkTheme: Boolean,
     isNetworkAvailable: Boolean,
-    onNavigateToScreenDetail: (String) -> Unit,
+    onNavigateToScreen: (String) -> Unit,
     viewModel: QRMainViewModel,
     activity: MainActivity,
 ) {
@@ -61,7 +59,8 @@ fun QRMainScreen(
                         modifier = Modifier,
                         listItemCollections = listItemEvent,
                         enable = enableOptions,
-                        enableQRCamera = viewModel::setEnableQRCamera
+                        enableQRCamera = viewModel::setEnableQRCamera,
+                        onNavigateToScreen = onNavigateToScreen,
                     )
                     ExtendedFloatingActionButton(
                         text = { Text(text = "Tùy chọn") },
@@ -92,7 +91,7 @@ fun QRMainScreen(
                         ) { _, history ->
                             HistoryItem(
                                 history = history,
-                                onNavigateToScreenDetail = onNavigateToScreenDetail
+                                onNavigateToScreenDetail = onNavigateToScreen
                             )
                         }
                     }

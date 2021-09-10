@@ -27,4 +27,7 @@ interface HistoryDao {
     @Query("SELECT * FROM history_table WHERE is_favorite = :isFavorite")
     suspend fun getFavorites(isFavorite: Boolean): List<HistoryEntity>
 
+    @Query("UPDATE history_table SET is_favorite = :isFavorite WHERE id = :idHistory")
+    suspend fun updateFavorites(isFavorite: Boolean, idHistory: String)
+
 }

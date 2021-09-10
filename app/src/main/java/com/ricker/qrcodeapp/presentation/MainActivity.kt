@@ -2,7 +2,6 @@ package com.ricker.qrcodeapp.presentation
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -16,6 +15,8 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.ricker.qrcodeapp.datastore.SettingsDataStore
 import com.ricker.qrcodeapp.domain.model.History
 import com.ricker.qrcodeapp.presentation.navigation.Screen
+import com.ricker.qrcodeapp.presentation.ui.favorites.FavoriteScreen
+import com.ricker.qrcodeapp.presentation.ui.favorites.FavoriteViewModel
 import com.ricker.qrcodeapp.presentation.ui.qrdetail.QRDetailScreen
 import com.ricker.qrcodeapp.presentation.ui.qrdetail.QRDetailViewModel
 import com.ricker.qrcodeapp.presentation.ui.qrmain.QRMainScreen
@@ -25,8 +26,6 @@ import com.ricker.qrcodeapp.presentation.util.ConnectivityManager
 import com.ricker.qrcodeapp.presentation.util.CreateIdByDate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 @ExperimentalAnimationApi
@@ -60,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     QRMainScreen(
                         isDarkTheme = settingsDataStore.isDark.value,
                         isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
-                        onNavigateToScreenDetail = navController::navigate,
+                        onNavigateToScreen = navController::navigate,
                         viewModel = viewModel,
                         activity = this@MainActivity,
                     )
@@ -76,10 +75,20 @@ class MainActivity : AppCompatActivity() {
                     QRDetailScreen(
                         isDarkTheme = settingsDataStore.isDark.value,
                         isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
-                        onNavigateToMainScreen = navController::navigate,
+                        onNavigateToScreen = navController::navigate,
                         historyId = navBackStackEntry.arguments?.getString("historyId"),
                         viewModel = viewModel,
                         activity = this@MainActivity,
+                    )
+                }
+                composable(route = Screen.Favorites.route){ navBackStackEntry ->
+                    val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
+                    val viewModel: FavoriteViewModel = viewModel("FavoriteViewModel", factory)
+                    FavoriteScreen(
+                        isDarkTheme = settingsDataStore.isDark.value,
+                        isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
+                        onNavigateToScreen = navController::navigate,
+                        viewModel = viewModel
                     )
                 }
             }

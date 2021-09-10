@@ -37,4 +37,6 @@ object Versions {
 
   const val zxing_embedded = "4.2.0"
   const val zxing_core = "3.3.0"
+
+  const val preference = "1.1.0"
 }

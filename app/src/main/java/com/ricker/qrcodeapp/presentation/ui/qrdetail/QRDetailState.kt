@@ -6,4 +6,9 @@ sealed class QRDetailState {
         val id: String,
     ): QRDetailState()
 
+    data class UpdateFavorite(
+        val isFavorite: Boolean,
+        val idHistoryItem: String,
+    ): QRDetailState()
+
 }

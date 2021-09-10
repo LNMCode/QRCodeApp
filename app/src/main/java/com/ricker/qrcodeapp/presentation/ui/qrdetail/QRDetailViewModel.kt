@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ricker.qrcodeapp.domain.model.History
 import com.ricker.qrcodeapp.interactors.history.GetHistory
+import com.ricker.qrcodeapp.interactors.history.UpdateHistory
 import com.ricker.qrcodeapp.util.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,13 +18,12 @@ class QRDetailViewModel
 @Inject
 constructor(
     private val getHistory: GetHistory,
+    private val updateHistory: UpdateHistory,
     private val savedStateHandle: SavedStateHandle,
 ): ViewModel() {
     val historyItem = mutableStateOf<History?>(null)
 
-    init {
-
-    }
+    val isFavorite = mutableStateOf(false)
 
     fun onTriggerEvent(event: QRDetailState){
         viewModelScope.launch {
@@ -31,6 +31,12 @@ constructor(
                 when(event){
                     is QRDetailState.GetHistoryById -> {
                         getHistoryById(event.id)
+                    }
+                    is QRDetailState.UpdateFavorite -> {
+                        updateFavoriteHistory(
+                            isFavorite = event.isFavorite,
+                            idHistoryItem = event.idHistoryItem,
+                        )
                     }
                 }
             } catch (e: Exception) {
@@ -42,8 +48,17 @@ constructor(
         }
     }
 
-    private suspend fun getHistoryById(id: String) {
-        historyItem.value = getHistory.getById(id)
+    private suspend fun updateFavoriteHistory(isFavorite: Boolean, idHistoryItem: String) {
+        updateHistory.updateFavorite(isFavorite, idHistoryItem)
+        setIsFavorite(isFavorite)
     }
 
+    private suspend fun getHistoryById(id: String) {
+        historyItem.value = getHistory.getById(id)
+        setIsFavorite(historyItem.value!!.isFavorite)
+    }
+
+    private fun setIsFavorite(isFavorite: Boolean){
+        this.isFavorite.value = isFavorite
+    }
 }

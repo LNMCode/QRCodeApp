@@ -83,6 +83,7 @@ dependencies {
     implementation AndroidX.room_ktx
     implementation AndroidX.datastore
     implementation AndroidX.hilt_lifecycle_viewmodel
+    implementation AndroidX.preference
 
     implementation Google.material
     implementation Google.hilt_android

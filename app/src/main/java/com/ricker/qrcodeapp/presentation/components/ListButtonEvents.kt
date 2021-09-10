@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.coil.CoilImage
+import com.ricker.qrcodeapp.presentation.navigation.Screen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
@@ -24,6 +25,7 @@ fun ListButtonEvents(
     listItemCollections: List<DataItemEvent>,
     enable: Boolean,
     enableQRCamera: (Boolean) -> Unit,
+    onNavigateToScreen: (String) -> Unit,
 ) {
     BoxWithConstraints(modifier = modifier) {
         val offset by animateDpAsState(
@@ -62,6 +64,7 @@ fun ListButtonEvents(
                         onClick = {
                             when(circleButton){
                                 DataItemEvent.ScanCode -> enableQRCamera(true)
+                                DataItemEvent.Favorites -> { onNavigateToScreen(Screen.Favorites.route) }
                             }
                         }
                     ) {
