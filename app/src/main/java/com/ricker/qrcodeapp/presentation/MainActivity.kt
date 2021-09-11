@@ -76,13 +76,18 @@ class MainActivity : AppCompatActivity() {
                     QRDetailScreen(
                         isDarkTheme = settingsDataStore.isDark.value,
                         isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
-                        onBackStack = navController::popBackStack,
+                        onBackStack = {
+                            navController.popBackStack(
+                                navController.getBackStackEntry(Screen.QRMain.route).destination.id,
+                                false
+                            )
+                        },
                         historyId = navBackStackEntry.arguments?.getString("historyId"),
                         viewModel = viewModel,
                         activity = this@MainActivity,
                     )
                 }
-                composable(route = Screen.Favorites.route){ navBackStackEntry ->
+                composable(route = Screen.Favorites.route) { navBackStackEntry ->
                     val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
                     val viewModel: FavoriteViewModel = viewModel("FavoriteViewModel", factory)
                     FavoriteScreen(
