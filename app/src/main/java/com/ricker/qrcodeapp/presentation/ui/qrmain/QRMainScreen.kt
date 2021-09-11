@@ -3,8 +3,7 @@ package com.ricker.qrcodeapp.presentation.ui.qrmain
 import android.app.Activity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -25,6 +24,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalAnimationApi
 @ExperimentalCoroutinesApi
+@ExperimentalFoundationApi
 @Composable
 fun QRMainScreen(
     isDarkTheme: Boolean,
@@ -78,22 +78,19 @@ fun QRMainScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(start = 15.dp, top = 15.dp, end = 15.dp, bottom = 0.dp)
+                        .padding(horizontal = 15.dp, vertical = 0.dp)
+                        .verticalScroll(rememberScrollState())
                 ) {
                     Text(
-                        modifier = Modifier.padding(bottom = 8.dp),
+                        modifier = Modifier.padding(vertical = 15.dp),
                         text = "Scanning History",
                         style = MaterialTheme.typography.h6
                     )
-                    LazyColumn {
-                        itemsIndexed(
-                            items = historyItems
-                        ) { _, history ->
-                            HistoryItem(
-                                history = history,
-                                onNavigateToScreen = onNavigateToScreen
-                            )
-                        }
+                    for (history in historyItems){
+                        HistoryItem(
+                            history = history,
+                            onNavigateToScreen = onNavigateToScreen
+                        )
                     }
                 }
                 AnimatedVisibility(visible = enableOptions, modifier = Modifier.fillMaxSize()) {

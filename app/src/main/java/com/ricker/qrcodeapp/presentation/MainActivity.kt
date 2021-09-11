@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -30,6 +31,7 @@ import javax.inject.Inject
 
 @ExperimentalAnimationApi
 @ExperimentalCoroutinesApi
+@ExperimentalFoundationApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 

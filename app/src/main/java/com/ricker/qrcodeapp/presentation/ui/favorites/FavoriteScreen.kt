@@ -1,5 +1,6 @@
 package com.ricker.qrcodeapp.presentation.ui.favorites
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -11,6 +12,7 @@ import com.ricker.qrcodeapp.presentation.components.BackToMainScreen
 import com.ricker.qrcodeapp.presentation.components.HistoryItem
 import com.ricker.qrcodeapp.presentation.theme.AppTheme
 
+@ExperimentalFoundationApi
 @Composable
 fun FavoriteScreen(
     isDarkTheme: Boolean,
@@ -44,7 +46,7 @@ fun FavoriteScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(start = 15.dp, top = 15.dp, end = 15.dp, bottom = 0.dp)
+                        .padding(horizontal = 15.dp, vertical = 0.dp)
                 ) {
                     LazyColumn {
                         itemsIndexed(
