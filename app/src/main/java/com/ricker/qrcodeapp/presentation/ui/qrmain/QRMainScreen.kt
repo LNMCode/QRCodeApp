@@ -1,19 +1,21 @@
 package com.ricker.qrcodeapp.presentation.ui.qrmain
 
 import android.app.Activity
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.coil.CoilImage
 import com.google.zxing.integration.android.IntentIntegrator
+import com.ricker.qrcodeapp.R
 import com.ricker.qrcodeapp.presentation.CustomActivity
 import com.ricker.qrcodeapp.presentation.MainActivity
 import com.ricker.qrcodeapp.presentation.components.HistoryItem
@@ -39,7 +41,13 @@ fun QRMainScreen(
 
     val enableQRCamera = viewModel.isEnableQRCamera.value
 
+    val enableRemoveItems = viewModel.isEnableRemoveItems.value
+
     val historyItems = viewModel.historyItems.value
+
+    val removeItems = viewModel.removeItems.value
+
+    val numberRemoveItems = viewModel.numberRemoveItems.value
 
     val loading = viewModel.loading.value
 
@@ -51,6 +59,37 @@ fun QRMainScreen(
     ) {
         Scaffold(
             scaffoldState = scaffoldState,
+            topBar = {
+                AnimatedVisibility(
+                    visible = enableRemoveItems,
+                    enter = slideInVertically() + expandVertically() + fadeIn(),
+                    exit = slideOutVertically() + shrinkVertically() + fadeOut()
+                ) {
+                    TopAppBar(
+                        title = { Text(text = "$numberRemoveItems", color = Color.White) },
+                        elevation = 10.dp,
+                        navigationIcon = {
+                            IconButton(onClick = viewModel::clearListItemsRemove) {
+                                Icon(
+                                    Icons.Default.ArrowBack,
+                                    tint = Color.White,
+                                    contentDescription = "Icon back"
+                                )
+                            }
+                        },
+                        actions = {
+                            IconButton(onClick = { viewModel.onTriggerEvent(QRMainState.DeleteHistory) }) {
+                                CoilImage(
+                                    data = R.drawable.ic_trash,
+                                    contentDescription = "Icon trash",
+                                    modifier = Modifier.size(25.dp),
+                                    contentScale = ContentScale.Crop,
+                                )
+                            }
+                        }
+                    )
+                }
+            },
             floatingActionButton = {
                 Column(
                     horizontalAlignment = Alignment.End
@@ -86,9 +125,13 @@ fun QRMainScreen(
                         text = "Scanning History",
                         style = MaterialTheme.typography.h6
                     )
-                    for (history in historyItems){
+                    for (history in historyItems) {
                         HistoryItem(
                             history = history,
+                            enableRemoveItems = enableRemoveItems,
+                            onLongClick = viewModel::setEnableRemoveItem,
+                            onAppendRemoveItem = viewModel::appendRemoveItem,
+                            onRemoveItem = viewModel::removeItem,
                             onNavigateToScreen = onNavigateToScreen
                         )
                     }

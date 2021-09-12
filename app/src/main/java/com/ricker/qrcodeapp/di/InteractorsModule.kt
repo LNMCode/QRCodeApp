@@ -3,10 +3,7 @@ package com.ricker.qrcodeapp.di
 import androidx.room.Update
 import com.ricker.qrcodeapp.cache.HistoryDao
 import com.ricker.qrcodeapp.cache.model.HistoryEntityMapper
-import com.ricker.qrcodeapp.interactors.history.GetFavorite
-import com.ricker.qrcodeapp.interactors.history.GetHistory
-import com.ricker.qrcodeapp.interactors.history.InsertHistory
-import com.ricker.qrcodeapp.interactors.history.UpdateHistory
+import com.ricker.qrcodeapp.interactors.history.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,6 +57,16 @@ object InteractorsModule {
         return GetFavorite(
             historyDao = historyDao,
             entityMapper = entityMapper,
+        )
+    }
+
+    @ViewModelScoped
+    @Provides
+    fun provideDeleteHistory(
+        historyDao: HistoryDao,
+    ): DeleteHistory{
+        return DeleteHistory(
+            historyDao = historyDao,
         )
     }
 

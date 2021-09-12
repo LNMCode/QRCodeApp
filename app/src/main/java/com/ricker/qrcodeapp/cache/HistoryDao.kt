@@ -13,13 +13,13 @@ interface HistoryDao {
     suspend fun getHistoryItemById(id: String): HistoryEntity?
 
     @Query("DELETE FROM history_table WHERE id IN (:ids)")
-    suspend fun deleteMoreHistoryItemById(ids: List<Int>): Int
+    suspend fun deleteHistoryItemsById(ids: List<String>): Int
 
     @Query("DELETE FROM history_table")
     suspend fun deleteAllHistoryItem()
 
     @Query("DELETE FROM history_table WHERE id = :primaryKey")
-    suspend fun deleteHistoryItem(primaryKey: Int): Int
+    suspend fun deleteHistoryItem(primaryKey: String): Int
 
     @Query("SELECT * FROM history_table")
     suspend fun getAllHistoryItem(): List<HistoryEntity>

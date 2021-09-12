@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ricker.qrcodeapp.domain.model.History
+import com.ricker.qrcodeapp.interactors.history.DeleteHistory
 import com.ricker.qrcodeapp.interactors.history.GetHistory
 import com.ricker.qrcodeapp.interactors.history.InsertHistory
 import com.ricker.qrcodeapp.presentation.util.ConnectivityManager
@@ -21,6 +22,7 @@ class QRMainViewModel
 constructor(
     private val getHistory: GetHistory,
     private val insertHistory: InsertHistory,
+    private val deleteHistory: DeleteHistory,
     private val connectivityManager: ConnectivityManager,
     private val state: SavedStateHandle,
 ) : ViewModel() {
@@ -28,7 +30,13 @@ constructor(
 
     val isEnableQRCamera = mutableStateOf(false)
 
+    val isEnableRemoveItems = mutableStateOf(false)
+
     val historyItems: MutableState<List<History>> = mutableStateOf(ArrayList())
+
+    val removeItems: MutableState<ArrayList<String>> = mutableStateOf(ArrayList())
+
+    val numberRemoveItems = mutableStateOf(0)
 
     val loading = mutableStateOf(false)
 
@@ -40,12 +48,11 @@ constructor(
         viewModelScope.launch {
             try {
                 when (event) {
-                    is QRMainState.GetListHistoryItemEvent -> {
-                        getListHistory()
-                    }
+                    is QRMainState.GetListHistoryItemEvent -> getListHistory()
                     is QRMainState.InsertHistoryItem -> {
                         insertHistory(event.model)
                     }
+                    is QRMainState.DeleteHistory -> deleteHistoryItems()
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "launchJob: Exception: ${e}, ${e.cause}")
@@ -65,11 +72,42 @@ constructor(
         onTriggerEvent(QRMainState.GetListHistoryItemEvent)
     }
 
+    private suspend fun deleteHistoryItems() {
+        deleteHistory.removeItemsById(removeItems.value)
+        onTriggerEvent(QRMainState.GetListHistoryItemEvent)
+        clearListItemsRemove()
+    }
+
     fun setEnableQRCamera(isEnable: Boolean) {
         isEnableQRCamera.value = isEnable
     }
 
     fun setEnableOptions(isEnable: Boolean) {
         isEnableOptions.value = isEnable
+    }
+
+    fun setEnableRemoveItem(isEnable: Boolean){
+        isEnableRemoveItems.value = isEnable
+    }
+
+    fun appendRemoveItem(id: String){
+        removeItems.value.add(id)
+        onChangeNumberRemoveItems(removeItems.value.size)
+    }
+
+    fun removeItem(id: String){
+        removeItems.value.remove(id)
+        onChangeNumberRemoveItems(removeItems.value.size)
+        if (numberRemoveItems.value == 0) setEnableRemoveItem(false)
+    }
+
+    fun clearListItemsRemove(){
+        removeItems.value.clear()
+        setEnableRemoveItem(false)
+        onChangeNumberRemoveItems(removeItems.value.size)
+    }
+
+    private fun onChangeNumberRemoveItems(number: Int){
+        numberRemoveItems.value = number
     }
 }

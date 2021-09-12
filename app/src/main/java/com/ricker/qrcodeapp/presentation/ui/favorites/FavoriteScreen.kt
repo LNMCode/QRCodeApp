@@ -1,5 +1,6 @@
 package com.ricker.qrcodeapp.presentation.ui.favorites
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,6 +13,7 @@ import com.ricker.qrcodeapp.presentation.components.BackToMainScreen
 import com.ricker.qrcodeapp.presentation.components.HistoryItem
 import com.ricker.qrcodeapp.presentation.theme.AppTheme
 
+@ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
 fun FavoriteScreen(
@@ -54,6 +56,10 @@ fun FavoriteScreen(
                         ) { _, history ->
                             HistoryItem(
                                 history = history,
+                                enableRemoveItems = false,
+                                onLongClick = {},
+                                onAppendRemoveItem = {},
+                                onRemoveItem = {},
                                 onNavigateToScreen = onNavigateToScreen
                             )
                         }

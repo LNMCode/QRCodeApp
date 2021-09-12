@@ -10,4 +10,6 @@ sealed class QRMainState {
         val model: History,
     ): QRMainState()
 
+    object DeleteHistory: QRMainState()
+
 }
