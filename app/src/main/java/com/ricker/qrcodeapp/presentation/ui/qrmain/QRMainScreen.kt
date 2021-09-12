@@ -45,8 +45,6 @@ fun QRMainScreen(
 
     val historyItems = viewModel.historyItems.value
 
-    val removeItems = viewModel.removeItems.value
-
     val numberRemoveItems = viewModel.numberRemoveItems.value
 
     val loading = viewModel.loading.value

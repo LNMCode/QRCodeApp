@@ -33,12 +33,12 @@ constructor(
     val isEnableRemoveItems = mutableStateOf(false)
 
     val historyItems: MutableState<List<History>> = mutableStateOf(ArrayList())
-
-    val removeItems: MutableState<ArrayList<String>> = mutableStateOf(ArrayList())
-
+    
     val numberRemoveItems = mutableStateOf(0)
 
     val loading = mutableStateOf(false)
+
+    private val removeItems: MutableState<ArrayList<String>> = mutableStateOf(ArrayList())
 
     init {
         onTriggerEvent(QRMainState.GetListHistoryItemEvent)
