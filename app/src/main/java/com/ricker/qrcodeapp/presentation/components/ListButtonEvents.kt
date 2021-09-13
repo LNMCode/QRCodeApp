@@ -65,6 +65,8 @@ fun ListButtonEvents(
                             when(circleButton){
                                 DataItemEvent.ScanCode -> enableQRCamera(true)
                                 DataItemEvent.Favorites -> { onNavigateToScreen(Screen.Favorites.route) }
+                                DataItemEvent.CreateCode -> { onNavigateToScreen(Screen.Create.route) }
+                                DataItemEvent.Setting -> {  }
                             }
                         }
                     ) {
