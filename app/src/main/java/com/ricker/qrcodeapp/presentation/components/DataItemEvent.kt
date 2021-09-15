@@ -42,5 +42,5 @@ val listItemEvent = listOf<DataItemEvent>(
     DataItemEvent.ScanCode,
     DataItemEvent.CreateCode,
     DataItemEvent.Favorites,
-    DataItemEvent.Setting,
+    //DataItemEvent.Setting,
 )

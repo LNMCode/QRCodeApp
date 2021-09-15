@@ -143,7 +143,7 @@ class CustomViewfinderView(context: Context?, attrs: AttributeSet?) :
         val frameLeft = frame.left.toFloat()
         val frameRight = frame.right.toFloat()
 
-        paint.color = Color.parseColor("#ffffff")
+        paint.color = Color.parseColor("#ff6738")
         paint.style = Paint.Style.FILL
         paint.strokeWidth = 1f
         //chiều dài/rộng của các góc
