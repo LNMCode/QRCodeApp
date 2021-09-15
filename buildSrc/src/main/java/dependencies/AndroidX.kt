@@ -28,4 +28,7 @@ object AndroidX {
   const val datastore = "androidx.datastore:datastore-preferences:${Versions.datastore}"
 
   const val hilt_lifecycle_viewmodel ="androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_lifecycle_viewmodel}"
+
+  const val preference = "androidx.preference:preference:${Versions.preference}"
+
 }

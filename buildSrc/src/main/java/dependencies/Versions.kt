@@ -34,4 +34,9 @@ object Versions {
   const val junit_jupiter = "5.7.0"
   const val datastore = "1.0.0-alpha06"
   const val accompanist_coil = "0.7.0"
+
+  const val zxing_embedded = "4.2.0"
+  const val zxing_core = "3.3.0"
+
+  const val preference = "1.1.0"
 }

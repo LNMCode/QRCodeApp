@@ -7,6 +7,7 @@ import dependencies.UnitTest
 import dependencies.Versions
 import dependencies.AndroidX
 import dependencies.Google
+import dependencies.ZXing
 
 plugins {
     id 'com.android.application'
@@ -82,6 +83,7 @@ dependencies {
     implementation AndroidX.room_ktx
     implementation AndroidX.datastore
     implementation AndroidX.hilt_lifecycle_viewmodel
+    implementation AndroidX.preference
 
     implementation Google.material
     implementation Google.hilt_android
@@ -93,7 +95,7 @@ dependencies {
     implementation Square.retrofit
     implementation Square.retrofit_gson
     implementation Square.okHttp
-    implementation Square.leak_canary
+    //implementation Square.leak_canary
 
     kapt AnnotationProcessing.hilt_compiler
     kapt AnnotationProcessing.room_compiler
@@ -102,4 +104,6 @@ dependencies {
     implementation InstrumentationTest.compose_ui
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    implementation ZXing.zxing_embedded
+    implementation ZXing.zxing_core
 }
